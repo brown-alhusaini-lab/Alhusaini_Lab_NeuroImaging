@@ -1,4 +1,4 @@
-# Oscar Pre-Processing Code
+# Oscar Pre-Processing Code Pipeline
 
 > **Note:** Login nodes are for job submission and directory management only. All heavy processing must be submitted via `sbatch`.
 
