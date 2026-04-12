@@ -8,12 +8,11 @@ Adapted from [Piper et al. (2026)](https://doi.org/10.1002/epi.70099) — origin
 
 ## Pipeline Overview
 
-Two parallel streams merge at connectome construction:
-T1 MRI → FreeSurfer → Lausanne → THOMAS → Final Parcellation (Nodes)
-↘
-Connectome → Statistics
-↗
-dMRI → Preprocessing → FOD Estimation → Tractography → SIFT2 (Edges)
+**T1 Stream:** T1 MRI → FreeSurfer → Lausanne → THOMAS → Final Parcellation (Nodes)
+
+**dMRI Stream:** dMRI → Preprocessing → FOD Estimation → Tractography → SIFT2 (Edges)
+
+Both streams merge at **Connectome Construction** → Node Strength → Statistics
 ---
 
 ## Documents
