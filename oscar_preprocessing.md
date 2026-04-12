@@ -25,10 +25,12 @@ module load anaconda3
 python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config /oscar/data/salhusai/DIPARK/x2b_myconfig.toml
 ```
 
+_(wait for all subjects to be processed, you should see them being populated into the folder eventually.)_
+
 ```bash
 ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/
 ```
-_(wait for all subjects to be processed)_
+_(confirm subject folders appeared before continuing)_
 
 ---
 
