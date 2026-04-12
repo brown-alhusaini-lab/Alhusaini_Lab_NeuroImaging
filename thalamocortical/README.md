@@ -13,6 +13,7 @@ Adapted from [Piper et al. (2026)](https://doi.org/10.1002/epi.70099) — origin
 **dMRI Stream:** dMRI → Preprocessing → FOD Estimation → Tractography → SIFT2 (Edges)
 
 Both streams merge at **Connectome Construction** → Node Strength → Statistics
+
 ---
 
 ## Documents
