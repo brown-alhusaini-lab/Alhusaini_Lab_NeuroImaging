@@ -1,4 +1,4 @@
-# Oscar Pre-Processing Code Pipeline
+# Oscar Pre-Processing Pipeline
 
 > **Note:** Login nodes are for job submission and directory management only. All heavy processing must be submitted via `sbatch`.
 
@@ -75,18 +75,27 @@ done
 ```
 _(for each subject: find their T1 scan inside the BIDS folder, then create a shortcut (symlink) in your staging folder — this avoids copying large files)_
 
+**Double check — confirm your T1 files are linked correctly before submitting:**
+```bash
+ls -l $INP
+```
+_(you should see one .nii.gz file per subject, pointing to a path in BIDS. If empty or missing subjects, the staging loop failed — do NOT continue to FreeSurfer)_
+
+```bash
+ls $INP | wc -l
+```
+_(should match the number of subjects you listed — if not, something is missing)_
+
 ---
 
 ### FreeSurfer
 
+> **⚠️ First time only — run once to create your personal SLURM script:**
+
 ```bash
 vim submit_recon_array.sh
 ```
-
-> **First time only:** Copy and paste the script below into the file and delete everything else. Don't forget to change your email in the first line.
-
-> ⚠️ IMPORTANT: Delete all existing content in the file before pasting this script.
-
+_(copy and paste the script below, delete everything else, change your email on line 1)_
 
 ```bash
 #!/bin/bash
@@ -118,18 +127,7 @@ SUBJ_ID=$(basename "$T1" | sed 's/_T1w\.nii\.gz$//')
 recon-all -s "$SUBJ_ID" -i "$T1" -all -openmp 4
 ```
 
-**Double check — confirm your T1 files are linked correctly before submitting:**
-```bash
-ls -l $INP
-```
-_(you should see one .nii.gz file per subject, pointing to a path in BIDS. If empty or missing subjects, the staging loop failed — do NOT continue to FreeSurfer)_
-
-```bash
-ls $INP | wc -l
-```
-_(should match the number of subjects you listed — if not, something is missing)_
-
-**Every time — update array size and submit:**
+> **Every time — do the following:**
 
 ```bash
 vim submit_recon_array.sh
