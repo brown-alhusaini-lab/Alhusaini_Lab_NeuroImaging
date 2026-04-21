@@ -13,4 +13,5 @@ All pipelines run on the OSCAR HPC cluster at Brown CCV. Start with `oscar_prepr
 
 ## Contact
 
-Ayman Zeanalabdeen — ayman_zeanalabdeen@brown.edu
+Ayman Zeanalabdeen — ayman_zeanalabdeen@brown.edu  
+Aida Abkenova - aida_abkenova@brown.edu
