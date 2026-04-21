@@ -11,7 +11,7 @@
 ```bash
 ssh -X $USER@ssh.ccv.brown.edu
 ```
-_(run this if you are in your computer's native terminal not OOD ^)_
+_(run this if you are in your computer's native terminal not OOD)_
 
 ```bash
 vim /oscar/data/salhusai/DIPARK/x2b_myconfig.toml
