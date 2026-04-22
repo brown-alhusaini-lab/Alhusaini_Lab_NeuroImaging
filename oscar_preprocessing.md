@@ -62,7 +62,7 @@ _(list every subject you want to process, space separated)_
 ```bash
 ls $BIDS | grep -E "sub-"
 ```
-(confirms your BIDS directory has the expected subjects — note this is your scratch directory which gets purged every 30 days. If empty, re-run xnat2bids first)
+_(confirms your BIDS directory has the expected subjects — note this is your scratch directory which gets purged every 30 days. If empty, re-run xnat2bids first)_
 
 ```bash
 for sub in $SUBJECTS; do
@@ -75,7 +75,7 @@ for sub in $SUBJECTS; do
   echo "Linked $sub"
 done
 ```
-_(for each subject: find their T1 scan inside the BIDS folder, then create a shortcut (symlink) in your staging folder — this avoids copying large files)_
+_(for each subject: find their T1 scan inside the BIDS folder, then create a shortcut (symlink) in your staging folder — this avoids copying large files. You should see "Linked sub-XXX" printed for each subject that was found successfully. If you don't see this for a subject, check that their BIDS folder exists and contains a T1w file)_
 
 **Double check — confirm your T1 files are linked correctly before submitting:**
 ```bash
