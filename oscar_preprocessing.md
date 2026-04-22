@@ -16,7 +16,7 @@ _(run this if you are in your computer's native terminal not OOD)_
 ```bash
 vim /oscar/data/salhusai/DIPARK/x2b_myconfig.toml
 ```
-_(change subjects)_
+_(add subject IDs to the subjects=[] field, e.g. subjects=["C101", "PD101"])_
 
 ```bash
 module load anaconda3
@@ -27,7 +27,7 @@ python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config /o
 ```
 _(enter XNAT username and password (should be the same as Brown login))_
 
-_(wait for all subjects to be processed, you should see them being populated into the folder eventually.)_
+_(this runs interactively — wait for it to finish before moving on)_
 
 ```bash
 ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/
