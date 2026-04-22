@@ -157,14 +157,12 @@ _(run this ~5 minutes after submitting — you should see one job per subject. I
 ```bash
 ls -lt /oscar/home/$USER/logs | head
 ```
-_(copy the most recent .out file)_
+(lists your most recent log files — the top one is the most recent)
 
 ```bash
-cat recon_1832703_1.out
+cat /oscar/home/$USER/logs/recon_XXXXXX_X.out
 ```
-_(replace with the most recent (top) .out file)_
-
-_(inspect the most recent log and look for: "ERROR", "No T1 found", or jobs exiting early. If logs are empty or missing, the job may not have started)_
+(replace with the actual filename from above — look for "ERROR", "No T1 found", or jobs exiting early. If the file is empty, the job may not have started properly)
 
 ---
 
