@@ -25,6 +25,7 @@ module load anaconda3
 ```bash
 python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config /oscar/data/salhusai/DIPARK/x2b_myconfig.toml
 ```
+_(enter XNAT username and password (should be the same as Brown login))_
 
 _(wait for all subjects to be processed, you should see them being populated into the folder eventually.)_
 
