@@ -153,10 +153,18 @@ squeue -u $USER
 ```
 _(run this ~5 minutes after submitting — you should see one job per subject. If the queue is empty, check your logs immediately (check next cell))_
 
+**If the Job Fails:**
 ```bash
 ls -lt /oscar/home/$USER/logs | head
 ```
-_(open the most recent log and look for: "ERROR", "No T1 found", or jobs exiting early. If logs are empty or missing, the job may not have started)_
+_(copy the most recent .out file)_
+
+```bash
+cat recon_1832703_1.out
+```
+_(replace with the most recent (top) .out file)_
+
+_(inspect the most recent log and look for: "ERROR", "No T1 found", or jobs exiting early. If logs are empty or missing, the job may not have started)_
 
 ---
 
