@@ -62,7 +62,7 @@ _(list every subject you want to process, space separated)_
 ```bash
 ls $BIDS | head
 ```
-_(confirms your BIDS directory contains subject folders — if empty, xnat2bids didn't work or path is wrong)_
+(confirms your BIDS directory has the expected subjects — note this is your scratch directory which gets purged every 30 days. If empty, re-run xnat2bids first)
 
 ```bash
 for sub in $SUBJECTS; do
