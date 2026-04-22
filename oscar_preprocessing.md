@@ -60,7 +60,7 @@ SUBJECTS="sub-c121 sub-c122 sub-c130"
 _(list every subject you want to process, space separated)_
 
 ```bash
-ls $BIDS | head
+ls $BIDS | grep -E "sub-"
 ```
 (confirms your BIDS directory has the expected subjects — note this is your scratch directory which gets purged every 30 days. If empty, re-run xnat2bids first)
 
