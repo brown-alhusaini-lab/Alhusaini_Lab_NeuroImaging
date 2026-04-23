@@ -186,16 +186,14 @@ python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config /o
 ```
 
 ```bash
-cd /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids
+ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/ | grep sub-XXX
 ```
-_(wait for subject folder to appear, then `ls`, navigate to `sub-XXX/ses-01/anat`)_
-
-Copy `T1w.nii.gz`, then:
+_(wait for subject folder to appear, then `ls` replacing sub-XXX with the subject to confirm that the subject is there, if nothing returns, then redo XNAT->BIDS process)_
 
 ```bash
 vim freesurfer.script.sh
 ```
-_(change recon subject and path)_
+_(replace both instances of sub-XXX with your subject ID, e.g. sub-c130)_
 
 ```bash
 sbatch freesurfer.script.sh
