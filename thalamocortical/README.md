@@ -39,5 +39,5 @@ Both streams merge at: Connectome Construction → Node Strength → Statistics
 
 ## Contact
 
-Ayman Zeanalabdeen — ayman_zeanalabdeen@brown.edu
+Ayman Zeanalabdeen — ayman_zeanalabdeen@brown.edu  
 Angelina Nguyen - angelina_nguyen@brown.edu
