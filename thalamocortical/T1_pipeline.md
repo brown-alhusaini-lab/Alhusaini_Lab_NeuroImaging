@@ -4,7 +4,7 @@
 
 > **Overview:** Two parallel streams — T1 anatomical segmentation and dMRI white matter connectivity — are built independently and merged during connectome construction.
 > - T1 stream: FreeSurfer → Lausanne parcellation → THOMAS thalamic segmentation → Combined parcellation
-> - dMRI stream: handled by lab partner (outputs in `derivatives/dwiprepro-mrtrix/`)
+> - dMRI stream: handled by Angelina (outputs in `derivatives/dwiprepro-mrtrix/`)
 > - Streams merge at Step 6 (connectome construction)
 
 ---
