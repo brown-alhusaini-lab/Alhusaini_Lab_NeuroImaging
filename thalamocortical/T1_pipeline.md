@@ -210,3 +210,31 @@ ls /oscar/data/salhusai/DIPARK/thalamo_project/subjects/sub-XXX/thomas/ | grep c
 - `sub-XXX_scale-3_connectome_fa.csv`
 
 _(If missing → check `/oscar/home/$USER/logs/connectome_XXXXXX.err`)_
+
+**QC — Connectome Sanity Check:**
+```bash
+module load anaconda3
+```
+```bash
+python3 /oscar/data/salhusai/DIPARK/thalamo_project/scripts/5_qc_connectome.py sub-XXX
+```
+_(checks shape, symmetry, NaN/negative values, and thalamic connectivity across all 9 connectomes)_
+
+**Expect:**
+- All checks `PASS`
+- `Overall: PASS`
+
+_(If any check fails → inspect that scale/type and cross-reference the `.err` log)_
+
+**If Check Fails**
+
+_(If `Thalamic nodes connected: FAIL` or suspicious registration → visually inspect in FSLeyes:)_
+
+```bash
+module load fsl/6.0.7.19s-jqc4
+```
+
+```bash
+fsleyes /oscar/data/salhusai/DIPARK/derivatives/dwiprepro-mrtrix/sub-XXX/ses-01/mrtrix/sub-XXX_ses-01_nodif.nii.gz /oscar/data/salhusai/DIPARK/thalamo_project/subjects/sub-XXX/thomas/sub-XXX_scale-1_diff_space_labels_thomas.nii.gz
+```
+_(must be run from a Desktop session on OOD at `ood.ccv.brown.edu` — X display required. Set parcellation colormap to **Random** and confirm labels land on brain, not outside it)_
