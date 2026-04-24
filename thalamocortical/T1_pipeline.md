@@ -177,7 +177,7 @@ _(If missing → check `/oscar/home/$USER/logs/combine_parc_XXXXXX.err`)_
 
 > Registers the combined parcellation to diffusion space, then builds weighted adjacency matrices using SIFT2 streamline counts. Three connectomes are produced per scale: raw SIFT2, volume-normalized SIFT2, and FA-weighted.
 >
-> **Requires:** Steps 3–5 complete AND dMRI outputs present in `derivatives/dwiprepro-mrtrix/`
+> **Requires:** Steps 2–5 complete AND dMRI outputs present in `derivatives/dwiprepro-mrtrix/`
 
 ```bash
 vim /oscar/data/salhusai/DIPARK/subjid.txt
@@ -187,7 +187,7 @@ _(add subject IDs, one per line)_
 ```bash
 sbatch /oscar/data/salhusai/DIPARK/thalamo_project/scripts/4_connectome.sh
 ```
-_(submits connectome construction job — expect ~2-4 hours per subject)_
+_(submits connectome construction job — expect ~4-8 hours per subject)_
 
 **Monitor:**
 ```bash
