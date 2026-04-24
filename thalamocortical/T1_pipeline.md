@@ -173,7 +173,7 @@ _(If missing → check `/oscar/home/$USER/logs/combine_parc_XXXXXX.err`)_
 
 ---
 
-## Step 6: Connectome Construction (T1 nodes + dMRI edges)
+## Step 6: Connectome Construction (T1 nodes + dMRI edges) + QC
 
 > Registers the combined parcellation to diffusion space, then builds weighted adjacency matrices using SIFT2 streamline counts. Three connectomes are produced per scale: raw SIFT2, volume-normalized SIFT2, and FA-weighted.
 >
