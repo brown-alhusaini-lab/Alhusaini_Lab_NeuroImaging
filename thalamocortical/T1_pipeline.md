@@ -42,6 +42,7 @@ freeview \
      $SUBJECTS_DIR/sub-XXX/surf/rh.white:edgecolor=blue \
      $SUBJECTS_DIR/sub-XXX/surf/rh.pial:edgecolor=red
 ```
+_(must be run from a Desktop session on OOD at ood.ccv.brown.edu — X display required)_
 _(opens freeview with brain volume, segmentation overlay, and white/pial surfaces for both hemispheres)_
 
 **QC — check all four:**
@@ -52,14 +53,21 @@ _(opens freeview with brain volume, segmentation overlay, and white/pial surface
 
 _(If QC passes → proceed to Step 3)_
 
-_(If QC fails → run refinement below, then repeat Step 2)_
+_(If QC fails → place control points in freeview, then run refinement below, then repeat Step 2)_
 
+1. Open freeview with the brain
+2. Load $SUBJECTS_DIR/sub-XXX/mri/brainmask.mgz as the volume
+3. Go to Tools → Edit Voxels (or control point mode)
+4. Navigate to a region where the surface is wrong
+5. Click to place control points in clearly white matter voxels
+6. Save via File → Save Control Points → saves to $SUBJECTS_DIR/sub-XXX/tmp/control.dat
+
+_(For control point placement instructions → see the FreeSurfer control points guide)_
 ```bash
-bash /oscar/data/salhusai/DIPARK/thalamo_project/scripts/0_freesurfer_refine.sh
+sbatch /oscar/data/salhusai/DIPARK/thalamo_project/scripts/0_freesurfer_refine.sh
 ```
-_(corrects intensity normalization errors using manually placed control points — only needed if QC fails)_
+*(reruns FreeSurfer stages 2-3 using manually placed control points — only needed if QC fails. Must place and save control points in freeview first before running)*
 
----
 
 ## Step 3: Lausanne Parcellation
 
