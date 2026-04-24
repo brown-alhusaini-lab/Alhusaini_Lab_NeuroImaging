@@ -15,6 +15,7 @@ All pipelines run on the OSCAR HPC cluster at Brown CCV. Start with `oscar_prepr
 ### MRI Preprocessing
 Aida Abkenova - aida_abkenova@brown.edu  
 Ayman Zeanalabdeen — ayman_zeanalabdeen@brown.edu  
+Michelle Ng - michelle_x_ng@brown.edu
 
 ### DTI Preprocessing
 Angelina Nguyen - angelina_nguyen@brown.edu
