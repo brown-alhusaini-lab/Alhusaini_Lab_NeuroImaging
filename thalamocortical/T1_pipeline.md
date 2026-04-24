@@ -42,7 +42,7 @@ freeview \
      $SUBJECTS_DIR/sub-XXX/surf/rh.white:edgecolor=blue \
      $SUBJECTS_DIR/sub-XXX/surf/rh.pial:edgecolor=red
 ```
-_(must be run from a Desktop session on OOD at ood.ccv.brown.edu — X display required)_
+_(must be run from a Desktop session on OOD at ood.ccv.brown.edu — X display required)_  
 _(opens freeview with brain volume, segmentation overlay, and white/pial surfaces for both hemispheres)_
 
 **QC — check all four:**
@@ -55,12 +55,12 @@ _(If QC passes → proceed to Step 3)_
 
 _(If QC fails → place control points in freeview, then run refinement below, then repeat Step 2)_
 
-1. Open freeview with the brain
-2. Load $SUBJECTS_DIR/sub-XXX/mri/brainmask.mgz as the volume
-3. Go to Tools → Edit Voxels (or control point mode)
-4. Navigate to a region where the surface is wrong
-5. Click to place control points in clearly white matter voxels
-6. Save via File → Save Control Points → saves to $SUBJECTS_DIR/sub-XXX/tmp/control.dat
+1. Open freeview with the brain  
+2. Load $SUBJECTS_DIR/sub-XXX/mri/brainmask.mgz as the volume  
+3. Go to Tools → Edit Voxels (or control point mode)  
+4. Navigate to a region where the surface is wrong  
+5. Click to place control points in clearly white matter voxels  
+6. Save via File → Save Control Points → saves to $SUBJECTS_DIR/sub-XXX/tmp/control.dat  
 
 _(For control point placement instructions → see the FreeSurfer control points guide)_
 ```bash
