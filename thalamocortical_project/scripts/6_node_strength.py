@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
+import os
 
+# Run with ALL completed subjects in subjid.txt to generate full cohort CSV
 nucleus_map = {"AV-L" : 115,
                     "AV-R" : 129,
                     "VA-L" : 116,
@@ -30,5 +32,7 @@ with open(f'/oscar/data/salhusai/DIPARK/subjid.txt', 'r') as f:
         strength_map_list.append(final_dict)
 
 df = pd.DataFrame(strength_map_list)
-df.to_csv("nucleus_strength.csv", index=False)
+os.makedirs("/oscar/data/salhusai/DIPARK/thalamo_project/subjects/stats/", exist_ok=True)
+df.to_csv("/oscar/data/salhusai/DIPARK/thalamo_project/subjects/stats/nucleus_strength.csv", index=False)
 
+print("Node Strengths calculated successfully!")
