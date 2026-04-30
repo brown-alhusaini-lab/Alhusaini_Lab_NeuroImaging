@@ -32,7 +32,7 @@ with open(f'/oscar/data/salhusai/DIPARK/subjid.txt', 'r') as f:
         strength_map_list.append(final_dict)
 
 df = pd.DataFrame(strength_map_list)
-os.makedirs("/oscar/data/salhusai/DIPARK/thalamo_project/subjects/stats/", exist_ok=True)
-df.to_csv("/oscar/data/salhusai/DIPARK/thalamo_project/subjects/stats/nucleus_strength.csv", index=False)
+os.makedirs("/oscar/data/salhusai/DIPARK/thalamo_project/stats/", exist_ok=True)
+df.to_csv("/oscar/data/salhusai/DIPARK/thalamo_project/stats/nucleus_strength.csv", index=False)
 
 print("Node Strengths calculated successfully!")
