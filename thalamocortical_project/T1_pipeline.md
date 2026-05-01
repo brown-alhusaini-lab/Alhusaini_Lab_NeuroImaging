@@ -196,7 +196,7 @@ _(add subject IDs, one per line)_
 ```bash
 sbatch /oscar/data/salhusai/DIPARK/thalamo_project/scripts/4_connectome.sh
 ```
-_(submits connectome construction job — expect ~4-8 hours per subject)_
+_(submits connectome construction job — expect ~2 mins per subject)_
 
 **Monitor:**
 ```bash
