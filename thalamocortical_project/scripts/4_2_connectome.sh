@@ -30,38 +30,37 @@ while IFS= read -r subjid; do
     
     python3 /oscar/data/salhusai/DIPARK/thalamo_project/scripts/fix_fa_nan.py \
         ${thomas_atlas}/${subjid}_${SESSION}_fa.csv
+    
+    # Register tractography to T1 space
+    convert_xfm \
+        -omat ${thomas_atlas}/${subjid}_diff2t1.mat -inverse ${diffusion_base}/${subjid}_${SESSION}_t12diff.mat
+
+    tcktransform \
+    ${diffusion_base}/${subjid}_${SESSION}_5M.tck ${thomas_atlas}/${subjid}_diff2t1.mat ${thomas_atlas}/${subjid}_5M_t1space.tck -force
 
     for scale in 1 2 3; do
 
         echo "Scale $scale"
 
-        # Register parcellation to diffusion space
-        flirt \
-            -in ${thomas_atlas}/${subjid}_scale-${scale}_parcellation_thomas.nii.gz \
-            -ref ${diffusion_base}/${subjid}_${SESSION}_nodif.nii.gz \
-            -applyxfm -init ${diffusion_base}/${subjid}_${SESSION}_t12diff.mat \
-            -out ${thomas_atlas}/${subjid}_scale-${scale}_diff_space_labels_thomas.nii.gz \
-            -interp nearestneighbour
-
 	# Build SIFT2 weighted connectome
         tck2connectome -symmetric \
             -tck_weights_in ${diffusion_base}/${subjid}_${SESSION}_5M_sift.txt \
-            ${diffusion_base}/${subjid}_${SESSION}_5M.tck \
-            ${thomas_atlas}/${subjid}_scale-${scale}_diff_space_labels_thomas.nii.gz \
-            ${thomas_atlas}/${subjid}_scale-${scale}_connectome_sift2.csv -force
+            ${thomas_atlas}/${subjid}_5M_t1space.tck \
+            ${thomas_atlas}/${subjid}_scale-${scale}_parcellation_thomas.nii.gz \
+            ${thomas_atlas}/${subjid}_scale-${scale}_connectome_sift2_t1space.csv -force
 
         # Build SIFT2 connectome corrected for node size
         tck2connectome -symmetric -scale_invnodevol \
             -tck_weights_in ${diffusion_base}/${subjid}_${SESSION}_5M_sift.txt \
-            ${diffusion_base}/${subjid}_${SESSION}_5M.tck \
-            ${thomas_atlas}/${subjid}_scale-${scale}_diff_space_labels_thomas.nii.gz \
-            ${thomas_atlas}/${subjid}_scale-${scale}_connectome_sift2_scaled.csv -force
+            ${thomas_atlas}/${subjid}_5M_t1space.tck \
+            ${thomas_atlas}/${subjid}_scale-${scale}_parcellation_thomas.nii.gz \
+            ${thomas_atlas}/${subjid}_scale-${scale}_connectome_sift2_scaled_t1space.csv -force
 
         # Build FA weighted connectome
         tck2connectome -symmetric \
-            ${diffusion_base}/${subjid}_${SESSION}_5M.tck \
-            ${thomas_atlas}/${subjid}_scale-${scale}_diff_space_labels_thomas.nii.gz \
-            ${thomas_atlas}/${subjid}_scale-${scale}_connectome_fa.csv \
+            ${thomas_atlas}/${subjid}_5M_t1space.tck \
+            ${thomas_atlas}/${subjid}_scale-${scale}_parcellation_thomas.nii.gz \
+            ${thomas_atlas}/${subjid}_scale-${scale}_connectome_fa_t1space.csv \
 	    -scale_file ${thomas_atlas}/${subjid}_${SESSION}_fa.csv \
             -stat_edge mean -force
 
