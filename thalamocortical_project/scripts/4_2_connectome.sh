@@ -26,17 +26,29 @@ while IFS= read -r subjid; do
         ${diffusion_base}/${subjid}_${SESSION}_fa.mif \
         ${thomas_atlas}/${subjid}_${SESSION}_fa.csv \
         -stat_tck mean \
-        -precise
+        -precise \
+        -force
     
     python3 /oscar/data/salhusai/DIPARK/thalamo_project/scripts/fix_fa_nan.py \
         ${thomas_atlas}/${subjid}_${SESSION}_fa.csv
     
-    # Register tractography to T1 space
-    convert_xfm \
-        -omat ${thomas_atlas}/${subjid}_diff2t1.mat -inverse ${diffusion_base}/${subjid}_${SESSION}_t12diff.mat
+    transformconvert \
+    ${diffusion_base}/${subjid}_${SESSION}_t12diff.mat \
+    ${diffusion_base}/${subjid}_${SESSION}_nodif.nii.gz \
+    ${thomas_atlas}/${subjid}_scale-1_parcellation_thomas.nii.gz \
+    flirt_import \
+    ${thomas_atlas}/${subjid}_t12diff_mrtrix.txt -force
 
-    tcktransform \
-    ${diffusion_base}/${subjid}_${SESSION}_5M.tck ${thomas_atlas}/${subjid}_diff2t1.mat ${thomas_atlas}/${subjid}_5M_t1space.tck -force
+    # Register tractography to T1 space
+    transformcalc \
+    ${thomas_atlas}/${subjid}_t12diff_mrtrix.txt \
+    invert \
+    ${thomas_atlas}/${subjid}_diff2t1_mrtrix.txt -force
+
+   tcktransform \
+    ${diffusion_base}/${subjid}_${SESSION}_5M.tck \
+    ${thomas_atlas}/${subjid}_diff2t1_mrtrix.txt \
+    ${thomas_atlas}/${subjid}_5M_t1space.tck -force
 
     for scale in 1 2 3; do
 
