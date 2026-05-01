@@ -75,4 +75,7 @@ while IFS= read -r subjid; do
 	mri_aparc2aseg --s $subjid --annot $ATLAS --o $SUBJECTS_DIR/$subjid/mri/$ATLAS.mgz
     done  # end atlas loop
 
+    mkdir -p $BASEDIR/thalamo_project/subjects/$subjid/lausanne/
+    mv $SUBJECTS_DIR/$subjid/mri/*myaparc*.mgz $BASEDIR/thalamo_project/subjects/$subjid/lausanne/
+    mv $SUBJECTS_DIR/$subjid/label/*myaparc*.annot $BASEDIR/thalamo_project/subjects/$subjid/lausanne/
 done < $BASEDIR/subjid.txt  # end subject loop

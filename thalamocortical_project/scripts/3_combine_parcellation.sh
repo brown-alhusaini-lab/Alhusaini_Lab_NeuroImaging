@@ -22,6 +22,7 @@ while IFS= read -r subjid; do
 
     thomas_atlas=$BASEDIR/thalamo_project/subjects/$subjid/thomas
     parc_base=$BASEDIR/procsubj/$subjid/mri
+    lausanne_atlas=$BASEDIR/thalamo_project/subjects/$subjid/lausanne
     
     for scale in 1 2 3; do
 
@@ -37,7 +38,7 @@ while IFS= read -r subjid; do
         rm ${thomas_atlas}/aseg.mgz
 
         # Convert Lausanne parcellation to nii.gz
-        mri_vol2vol --mov ${parc_base}/myaparc_${myaparc}.mgz --targ ${parc_base}/orig/001.mgz --regheader --o ${thomas_atlas}/myaparc_${myaparc}.mgz --nearest
+        mri_vol2vol --mov ${lausanne_atlas}/myaparc_${myaparc}.mgz --targ ${parc_base}/orig/001.mgz --regheader --o ${thomas_atlas}/myaparc_${myaparc}.mgz --nearest
         mrconvert ${thomas_atlas}/myaparc_${myaparc}.mgz ${thomas_atlas}/${subjid}_scale-${scale}_parcellation.nii.gz -force
         rm ${thomas_atlas}/myaparc_${myaparc}.mgz
 	

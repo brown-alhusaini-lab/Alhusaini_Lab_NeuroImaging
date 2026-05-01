@@ -30,12 +30,13 @@ apptainer exec \
     -B ${PWD}:${PWD} \
     --pwd ${PWD} \
     $SIF \
-    hipsthomas_csh -i ${subjid}_T1w.nii.gz -t1
+    thomas_csh_big ${subjid}_T1w.nii.gz
 
 # RE-ORGANISE / TIDY FILES
 cp left/thomasfull.nii.gz ${subjid}_thomas_left.nii.gz
 cp right/thomasrfull.nii.gz ${subjid}_thomas_right.nii.gz
 rm -rf left right temp tempr
+rm -f m*.nii.gz
 
 # Move back to the subject list
 cd $BASEDIR
