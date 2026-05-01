@@ -39,26 +39,20 @@ while IFS= read -r subjid; do
     flirt_import \
     ${thomas_atlas}/${subjid}_t12diff_mrtrix.txt -force
 
-    # Register tractography to T1 space
-    transformcalc \
-    ${thomas_atlas}/${subjid}_t12diff_mrtrix.txt \
-    invert \
-    ${thomas_atlas}/${subjid}_diff2t1_mrtrix.txt -force
-
-    # Create identity warp in T1 space
+    # Create warp for streamlines dwi → T1 space
     warpinit ${thomas_atlas}/${subjid}_scale-1_parcellation_thomas.nii.gz \
-        ${thomas_atlas}/${subjid}_identity_warp.nii.gz -force
+        ${thomas_atlas}/${subjid}_w_i.mif -force
 
-    # Apply linear transform to create actual warp field
-    mrtransform ${thomas_atlas}/${subjid}_identity_warp.nii.gz \
-        -linear ${thomas_atlas}/${subjid}_diff2t1_mrtrix.txt \
-        -datatype float32 \
-        ${thomas_atlas}/${subjid}_diff2t1_warp.nii.gz -force
+    transformcompose \
+        ${thomas_atlas}/${subjid}_w_i.mif \
+        ${thomas_atlas}/${subjid}_t12diff_mrtrix.txt \
+        ${thomas_atlas}/${subjid}_warp_dwi_to_t1.mif \
+        -template ${diffusion_base}/${subjid}_${SESSION}_nodif.nii.gz -force
 
-   tcktransform \
-    ${diffusion_base}/${subjid}_${SESSION}_5M.tck \
-    ${thomas_atlas}/${subjid}_diff2t1_warp.nii.gz \
-    ${thomas_atlas}/${subjid}_5M_t1space.tck -force
+    tcktransform \
+        ${diffusion_base}/${subjid}_${SESSION}_5M.tck \
+        ${thomas_atlas}/${subjid}_warp_dwi_to_t1.mif \
+        ${thomas_atlas}/${subjid}_5M_t1space.tck -force
 
     for scale in 1 2 3; do
 
