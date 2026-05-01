@@ -30,7 +30,7 @@ apptainer exec \
     -B ${PWD}:${PWD} \
     --pwd ${PWD} \
     $SIF \
-    thomas_csh_big ${subjid}_T1w.nii.gz
+    hipsthomas_csh -i ${subjid}_T1w.nii.gz -t1
 
 # RE-ORGANISE / TIDY FILES
 cp left/thomasfull.nii.gz ${subjid}_thomas_left.nii.gz
