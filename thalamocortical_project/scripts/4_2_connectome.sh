@@ -39,13 +39,19 @@ while IFS= read -r subjid; do
     flirt_import \
     ${thomas_atlas}/${subjid}_t12diff_mrtrix.txt -force
 
+    # Register tractography to T1 space
+    transformcalc \
+    ${thomas_atlas}/${subjid}_t12diff_mrtrix.txt \
+    invert \
+    ${thomas_atlas}/${subjid}_diff2t1_mrtrix.txt -force
+
     # Create warp for streamlines dwi → T1 space
     warpinit ${thomas_atlas}/${subjid}_scale-1_parcellation_thomas.nii.gz \
         ${thomas_atlas}/${subjid}_w_i.mif -force
 
     transformcompose \
         ${thomas_atlas}/${subjid}_w_i.mif \
-        ${thomas_atlas}/${subjid}_t12diff_mrtrix.txt \
+        ${thomas_atlas}/${subjid}_diff2t1_mrtrix.txt \
         ${thomas_atlas}/${subjid}_warp_dwi_to_t1.mif \
         -template ${diffusion_base}/${subjid}_${SESSION}_nodif.nii.gz -force
 
