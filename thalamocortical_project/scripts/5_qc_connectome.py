@@ -20,7 +20,7 @@ with open(f'/oscar/data/salhusai/DIPARK/subjid.txt', 'r') as f:
             print(f'{"="*40}')
 
             for ctype in connectome_types:
-                path = f'{base}/{subjid}_scale-{scale}_connectome_{ctype}.csv'
+                path = f'{base}/{subjid}_scale-{scale}_connectome_{ctype}_t1space.csv'
                 print(f'\n  [{ctype}]')
 
                 # Check file exists

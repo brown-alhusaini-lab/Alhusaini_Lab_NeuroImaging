@@ -24,7 +24,7 @@ with open(f'/oscar/data/salhusai/DIPARK/subjid.txt', 'r') as f:
     strength_map_list = []
     for line in f:
         subjid = line.strip()
-        base = f'/oscar/data/salhusai/DIPARK/thalamo_project/subjects/{subjid}/thomas/{subjid}_scale-2_connectome_sift2.csv'
+        base = f'/oscar/data/salhusai/DIPARK/thalamo_project/subjects/{subjid}/thomas/{subjid}_scale-2_connectome_sift2_t1space.csv'
         csv_txt = np.loadtxt(base, delimiter=",")
         subj_dict = {"subjid": f"{subjid}"}
         nucleus_strength_map = {name: np.sum(csv_txt[label - 1, :]) for name, label in nucleus_map.items()}
@@ -33,6 +33,6 @@ with open(f'/oscar/data/salhusai/DIPARK/subjid.txt', 'r') as f:
 
 df = pd.DataFrame(strength_map_list)
 os.makedirs("/oscar/data/salhusai/DIPARK/thalamo_project/stats/", exist_ok=True)
-df.to_csv("/oscar/data/salhusai/DIPARK/thalamo_project/stats/nucleus_strength.csv", index=False)
+df.to_csv("/oscar/data/salhusai/DIPARK/thalamo_project/stats/nucleus_strength_t1space.csv", index=False)
 
 print("Node Strengths calculated successfully!")
