@@ -186,7 +186,7 @@ _(If missing → check `/oscar/home/$USER/logs/combine_parc_XXXXXX.err`)_
 
 > Registers the combined parcellation to diffusion space, then builds weighted adjacency matrices using SIFT2 streamline counts. Three connectomes are produced per scale: raw SIFT2, volume-normalized SIFT2, and FA-weighted.
 >
-> **Requires:** Steps 2–5 complete AND dMRI outputs present in `derivatives/dwiprepro-mrtrix/`
+> **Requires:** Steps 2–5 complete AND dMRI outputs (_10M.tck and _10M_sift.txt) present in `derivatives/dwiprepro-mrtrix/`
 
 ```bash
 vim /oscar/data/salhusai/DIPARK/subjid.txt
@@ -196,7 +196,7 @@ _(add subject IDs, one per line)_
 ```bash
 sbatch /oscar/data/salhusai/DIPARK/thalamo_project/scripts/4_connectome.sh
 ```
-_(submits connectome construction job — expect ~2 mins per subject)_
+_(submits connectome construction job — expect ~6 mins per subject)_
 
 **Monitor:**
 ```bash
@@ -208,15 +208,16 @@ squeue -u $USER
 ls /oscar/data/salhusai/DIPARK/thalamo_project/subjects/sub-XXX/thomas/ | grep connectome
 ```
 **Expect:**
-- `sub-XXX_scale-1_connectome_sift2.csv`
-- `sub-XXX_scale-1_connectome_sift2_scaled.csv`
-- `sub-XXX_scale-1_connectome_fa.csv`
-- `sub-XXX_scale-2_connectome_sift2.csv`
-- `sub-XXX_scale-2_connectome_sift2_scaled.csv`
-- `sub-XXX_scale-2_connectome_fa.csv`
-- `sub-XXX_scale-3_connectome_sift2.csv`
-- `sub-XXX_scale-3_connectome_sift2_scaled.csv`
-- `sub-XXX_scale-3_connectome_fa.csv`
+- `sub-XXX_scale-1_connectome_sift2_t1space.csv`
+- `sub-XXX_scale-1_connectome_sift2_scaled_t1space.csv`
+- `sub-XXX_scale-1_connectome_fa_t1space.csv`
+- `sub-XXX_scale-2_connectome_sift2_t1space.csv`
+- `sub-XXX_scale-2_connectome_sift2_scaled_t1space.csv`
+- `sub-XXX_scale-2_connectome_fa_t1space.csv`
+- `sub-XXX_scale-3_connectome_sift2_t1space.csv`
+- `sub-XXX_scale-3_connectome_sift2_scaled_t1space.csv`
+- `sub-XXX_scale-3_connectome_fa_t1space.csv`
+- `sub-XXX_10M_t1space.tck`
 
 _(If missing → check `/oscar/home/$USER/logs/connectome_XXXXXX.err`)_
 
@@ -244,6 +245,9 @@ module load fsl/6.0.7.19s-jqc4
 ```
 
 ```bash
-fsleyes /oscar/data/salhusai/DIPARK/derivatives/dwiprepro-mrtrix/sub-XXX/ses-01/mrtrix/sub-XXX_ses-01_nodif.nii.gz /oscar/data/salhusai/DIPARK/thalamo_project/subjects/sub-XXX/thomas/sub-XXX_scale-1_diff_space_labels_thomas.nii.gz
+fsleyes \
+  /oscar/data/salhusai/DIPARK/thalamo_project/subjects/sub-XXX/thomas/sub-XXX_T1w.nii.gz \
+  /oscar/data/salhusai/DIPARK/thalamo_project/subjects/sub-XXX/thomas/sub-XXX_scale-1_parcellation_thomas.nii.gz \
+  /oscar/data/salhusai/DIPARK/thalamo_project/subjects/sub-XXX/thomas/sub-XXX_10M_t1space.tck
 ```
-_(must be run from a Desktop session on OOD at `ood.ccv.brown.edu` — X display required. Set parcellation colormap to **Random** and confirm labels land on brain, not outside it)_
+_(replace sub-XXX with subject. Must be run from a Desktop session on OOD at `ood.ccv.brown.edu` — X display required. Set parcellation colormap to **Random** and confirm labels land on brain, not outside it)_
