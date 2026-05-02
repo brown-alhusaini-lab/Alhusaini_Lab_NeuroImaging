@@ -20,9 +20,10 @@ Both streams merge at: Connectome Construction → Node Strength → Statistics
 
 | File | Description |
 |------|-------------|
-| `T1_pipeline.md` | Full T1 stream pipeline (FreeSurfer → Lausanne → THOMAS → Combine) |
-| `dmri.md (coming soon)` | dMRI stream pipeline (Preprocessing → Tractography → Connectome) |
-| `statistical_analysis.md (coming soon)` | Statistical analysis (Node strength → GLM → Z-scoring → Group comparison) |
+| `t1_pipeline.md` | Full T1 stream pipeline (FreeSurfer → Lausanne → THOMAS → Combine) |
+| `dmri.md` *(coming soon)* | dMRI stream pipeline (Preprocessing → Tractography → Connectome) |
+| `statistical_analysis.md` *(coming soon)* | Statistical analysis (Node strength → GLM → Z-scoring → Group comparison) |
+| `docs/pipeline_optimization_notes.md` | Methodology decisions and validation results |
 
 ---
 

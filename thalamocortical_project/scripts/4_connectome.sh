@@ -29,7 +29,7 @@ while IFS= read -r subjid; do
         -precise \
         -force
     
-    python3 /oscar/data/salhusai/DIPARK/thalamo_project/scripts/fix_fa_nan.py \
+    python3 /oscar/data/salhusai/DIPARK/thalamo_project/scripts/utils/fix_fa_nan.py \
         ${thomas_atlas}/${subjid}_${SESSION}_fa.csv
     
     transformconvert \
