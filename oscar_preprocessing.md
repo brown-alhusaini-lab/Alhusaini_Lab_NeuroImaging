@@ -23,7 +23,7 @@ module load anaconda3
 ```
 
 ```bash
-python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config /oscar/data/salhusai/DIPARK/x2b_myconfig.toml
+python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config ~/x2b_myconfig.toml
 ```
 _(enter XNAT username and password (should be the same as Brown login))_
 
