@@ -13,8 +13,50 @@ ssh -X $USER@ssh.ccv.brown.edu
 ```
 _(run this if you are in your computer's native terminal not OOD)_
 
+> **⚠️ First time only — run once to create your personal SLURM script:**
+
 ```bash
-vim /oscar/data/salhusai/DIPARK/x2b_myconfig.toml
+vim $HOME/x2b_myconfig.toml
+```
+_(this is the configuration file for the xnat->bids step)_
+
+Type in <kbd>:%d</kbd> to clear file
+
+_(deletes anything currently in the file, if there is anything at all, as we want to replace everything. Make sure you see :d% in the bottom left corner when you input this)_
+
+Press <kbd>i</kbd> to enter Insert Mode
+
+_(allows you to insert (edit) into the now empty file. Make sure you see -- INSERT -- in the bottom left corner when you input this)_
+
+_(now, copy and paste the script below, change your email on line 2, and change YOUR_USERNAME in bids_root="/oscar/scratch/YOUR_USERNAME/sourcedata"_
+
+**:bangbang: _(NOTE: ABSOLUTELY MAKE SURE THAT YOU ARE IN THE x2b_myconfig.toml FILE WHEN YOU COPY THIS IN, DO NOT RUN THIS IN THE TERMINAL OR ELSE YOU WILL GET AN ANGRY EMAIL)_**
+
+```bash
+[slurm-args]
+mail-user="your_email@brown.edu"
+mail-type="ALL"
+time="01:00:00"
+mem=4000
+
+[xnat2bids-args]
+project="ALHUSAINI_DIPARK"
+subjects=["sub-XXX", "sub-YYY"]
+## Replace with your subject IDs, one per line
+
+## Replace YOUR_USERNAME with your OSCAR username (e.g. jsmith1)
+bids_root="/oscar/scratch/YOUR_USERNAME/sourcedata"
+overwrite=true
+verbose=1
+dicomfix-config="/oscar/data/salhusai/DIPARK/alhusaini_fmap_dicom_fix_config.json"
+```
+
+Press <kbd>Esc</kbd> to exit Insert Mode
+
+> **Every time — do the following:**
+
+```bash
+vim $HOME/x2b_myconfig.toml
 ```
 _(add subject IDs to the subjects=[] field, e.g. subjects=["C101", "PD101"])_
 
@@ -23,7 +65,7 @@ module load anaconda3
 ```
 
 ```bash
-python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config ~/x2b_myconfig.toml
+python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config $HOME/x2b_myconfig.toml
 ```
 _(enter XNAT username and password (should be the same as Brown login))_
 
@@ -97,7 +139,9 @@ _(should match the number of subjects you listed — if not, something is missin
 ```bash
 vim submit_recon_array.sh
 ```
-_(copy and paste the script below, delete everything else, change your email on line 1)_
+_(Delete anything currently in the file, if there is anything, copy and paste the script below, change your email on line 2)_
+
+**:bangbang: _(NOTE: ABSOLUTELY MAKE SURE THAT YOU ARE IN THE x2b_myconfig.toml FILE WHEN YOU COPY THIS IN, DO NOT RUN THIS IN THE TERMINAL OR ELSE YOU WILL GET AN ANGRY EMAIL)_**
 
 ```bash
 #!/bin/bash
