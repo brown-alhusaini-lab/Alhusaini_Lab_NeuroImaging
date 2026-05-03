@@ -21,7 +21,7 @@ vim $HOME/x2b_myconfig.toml
 _(this is the configuration file for the xnat->bids step)_
 
 ```text
-Type in <kbd>:%d</kbd> to clear file
+Type in **:%d** to clear file
 ```
 
 
