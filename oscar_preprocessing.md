@@ -20,11 +20,10 @@ vim $HOME/x2b_myconfig.toml
 ```
 _(this is the configuration file for the xnat->bids step)_
 
+#### Clear the file
 ```text
-Type in **:%d** to clear file
+:%d
 ```
-
-
 _(deletes anything currently in the file, if there is anything at all, as we want to replace everything. Make sure you see :%d in the bottom left corner when you input this)_
 
 #### Press <kbd>i</kbd> to enter Insert Mode
