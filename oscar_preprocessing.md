@@ -141,9 +141,19 @@ _(should match the number of subjects you listed — if not, something is missin
 ```bash
 vim submit_recon_array.sh
 ```
-_(Delete anything currently in the file, if there is anything, copy and paste the script below, change your email on line 2)_
+_(this is the file to run the FreeSurfer processing)_
 
-**:bangbang: _(NOTE: ABSOLUTELY MAKE SURE THAT YOU ARE IN THE x2b_myconfig.toml FILE WHEN YOU COPY THIS IN, DO NOT RUN THIS IN THE TERMINAL OR ELSE YOU WILL GET AN ANGRY EMAIL)_**
+Type in <kbd>:%d</kbd> to clear file
+
+_(deletes anything currently in the file, if there is anything at all, as we want to replace everything. Make sure you see :%d in the bottom left corner when you input this)_
+
+Press <kbd>i</kbd> to enter Insert Mode
+
+_(allows you to insert (edit) into the now empty file. Make sure you see -- INSERT -- in the bottom left corner when you input this)_
+
+_(now, copy and paste the script below, change your email on line 2)_
+
+**:bangbang: _(NOTE: ABSOLUTELY MAKE SURE THAT YOU ARE IN THE submit_recon_array.sh FILE WHEN YOU COPY THIS IN, DO NOT RUN THIS IN THE TERMINAL OR ELSE YOU WILL GET AN ANGRY EMAIL)_**
 
 ```bash
 #!/bin/bash
@@ -174,8 +184,16 @@ T1=$(ls -1 "$INPUT_DIR"/*.nii.gz | sed -n "$((SLURM_ARRAY_TASK_ID+1))p")
 SUBJ_ID=$(basename "$T1" | sed 's/_T1w\.nii\.gz$//')
 recon-all -s "$SUBJ_ID" -i "$T1" -all -openmp 4
 ```
+Press <kbd>Esc</kbd> to exit Insert Mode
+
+Type in <kbd>:wq</kbd> to save and exit the file
 
 > **Every time — do the following:**
+
+```bash
+mkdir -p $HOME/logs
+```
+_(Creates the log folder that submit_recon_array.sh will write to)_
 
 ```bash
 vim submit_recon_array.sh
@@ -219,7 +237,7 @@ ssh -X $USER@ssh.ccv.brown.edu
 ```
 
 ```bash
-vim /oscar/data/salhusai/DIPARK/x2b_myconfig.toml
+vim $HOME/x2b_myconfig.toml
 ```
 _(change to subject ID, e.g. c130)_
 
@@ -228,7 +246,7 @@ module load anaconda3
 ```
 
 ```bash
-python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config /oscar/data/salhusai/DIPARK/x2b_myconfig.toml
+python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config $HOME/x2b_myconfig.toml
 ```
 
 ```bash
