@@ -14,7 +14,7 @@
 > **Note:** Step 4 (THOMAS) can be run concurrently with Steps 2–3 once XNAT2BIDS is complete — it only requires the raw T1, not FreeSurfer output.
 
 ```bash
-vim /oscar/data/salhusai/DIPARK/subjid.txt
+vim $HOME/subjid.txt
 ```
 _(add subject IDs, one per line, e.g. `sub-c100`)_
 
@@ -80,7 +80,7 @@ _(reruns FreeSurfer stages 2–3 using manually placed control points — must s
 - `myaparc_125` (Scale 3)
 
 ```bash
-vim /oscar/data/salhusai/DIPARK/subjid.txt
+vim $HOME/subjid.txt
 ```
 _(add subject IDs, one per line, e.g. `sub-c100`)_
 
@@ -123,7 +123,7 @@ _(If missing → check `/oscar/home/$USER/logs/lausanne_XXXXXX.err`)_
 > Segments thalamic nuclei (AV, CM, MDPf, PUL, VA, VLA, VLP, VPL) from the raw T1 using the THOMAS atlas. Runs inside an Apptainer container. Can run concurrently with Steps 2–3.
 
 ```bash
-vim /oscar/data/salhusai/DIPARK/subjid.txt
+vim $HOME/subjid.txt
 ```
 _(add subject IDs, one per line, e.g. `sub-c100`)_
 
@@ -155,7 +155,7 @@ _(If missing → check `/oscar/home/$USER/logs/thomas_XXXXXX.err`)_
 > Replaces the single thalamus region in the Lausanne atlas with the detailed THOMAS nuclei, producing a final combined parcellation for each scale. This defines all nodes of the brain network.
 
 ```bash
-vim /oscar/data/salhusai/DIPARK/subjid.txt
+vim $HOME/subjid.txt
 ```
 _(add subject IDs, one per line)_
 
@@ -189,7 +189,7 @@ _(If missing → check `/oscar/home/$USER/logs/combine_parc_XXXXXX.err`)_
 > **Requires:** Steps 2–5 complete AND dMRI outputs (_10M.tck and _10M_sift.txt) present in `derivatives/dwiprepro-mrtrix/`
 
 ```bash
-vim /oscar/data/salhusai/DIPARK/subjid.txt
+vim $HOME/subjid.txt
 ```
 _(add subject IDs, one per line)_
 
