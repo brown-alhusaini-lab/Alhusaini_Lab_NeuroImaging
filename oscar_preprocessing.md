@@ -20,7 +20,10 @@ vim $HOME/x2b_myconfig.toml
 ```
 _(this is the configuration file for the xnat->bids step)_
 
-### Type in <kbd>:%d</kbd> to clear file
+```text
+Type in <kbd>:%d</kbd> to clear file
+```
+
 
 _(deletes anything currently in the file, if there is anything at all, as we want to replace everything. Make sure you see :%d in the bottom left corner when you input this)_
 
