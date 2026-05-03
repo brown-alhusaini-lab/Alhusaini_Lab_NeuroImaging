@@ -26,8 +26,10 @@ _(this is the configuration file for the xnat->bids step)_
 ```
 _(deletes anything currently in the file, if there is anything at all, as we want to replace everything. Make sure you see :%d in the bottom left corner when you input this)_
 
-#### Press <kbd>i</kbd> to enter Insert Mode
-
+#### Enter Insert Mode
+```text
+i
+```
 _(allows you to insert (edit) into the now empty file. Make sure you see -- INSERT -- in the bottom left corner when you input this)_
 
 _(now, copy and paste the script below, change your email on line 2, and change YOUR_USERNAME in bids_root="/oscar/scratch/YOUR_USERNAME/sourcedata"_
@@ -53,9 +55,15 @@ verbose=1
 dicomfix-config="/oscar/data/salhusai/DIPARK/alhusaini_fmap_dicom_fix_config.json"
 ```
 
-Press <kbd>Esc</kbd> to exit Insert Mode
+#### Exit Insert Mode
+```text
+Press Esc (dont type this in)
+```
 
-Type in <kbd>:wq</kbd> to save and exit the file
+#### Save and Exit the file
+```text
+:wq
+```
 
 > **Every time — do the following:**
 
@@ -145,11 +153,17 @@ vim submit_recon_array.sh
 ```
 _(this is the file to run the FreeSurfer processing)_
 
-Type in <kbd>:%d</kbd> to clear file
 
+#### Clear the file
+```text
+:%d
+```
 _(deletes anything currently in the file, if there is anything at all, as we want to replace everything. Make sure you see :%d in the bottom left corner when you input this)_
 
-Press <kbd>i</kbd> to enter Insert Mode
+#### Enter Insert Mode
+```text
+i
+```
 
 _(allows you to insert (edit) into the now empty file. Make sure you see -- INSERT -- in the bottom left corner when you input this)_
 
@@ -186,9 +200,15 @@ T1=$(ls -1 "$INPUT_DIR"/*.nii.gz | sed -n "$((SLURM_ARRAY_TASK_ID+1))p")
 SUBJ_ID=$(basename "$T1" | sed 's/_T1w\.nii\.gz$//')
 recon-all -s "$SUBJ_ID" -i "$T1" -all -openmp 4
 ```
-Press <kbd>Esc</kbd> to exit Insert Mode
+#### Exit Insert Mode
+```text
+Press Esc (dont type this in)
+```
 
-Type in <kbd>:wq</kbd> to save and exit the file
+#### Save and Exit the file
+```text
+:wq
+```
 
 > **Every time — do the following:**
 
