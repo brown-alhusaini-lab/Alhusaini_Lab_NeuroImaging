@@ -43,74 +43,83 @@ for index, row in df_tracker.iterrows():
 c_thickness_vals = []
 c_brainseg_vals = []
 for sub in c_list:
-    with open(f'{BASEDIR}{sub}/stats/lh.aparc.stats', 'r') as f:
-        for line in f:
-            line = line.strip()
-            if "MeanThickness" in line:
-                thickness = line.split(",")[3].strip()
-                c_thickness_vals.append(float(thickness))
-                break
-    with open(f'{BASEDIR}{sub}/stats/aseg.stats', 'r') as f:
-        for line in f:
-            line = line.strip()
-            if "BrainSegVol" in line:
-                volume = line.split(",")[3].strip()
-                c_brainseg_vals.append(float(volume))
-                break
+    if os.path.exists(f'{BASEDIR}{sub}/stats/lh.aparc.stats'):
+        with open(f'{BASEDIR}{sub}/stats/lh.aparc.stats', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if "MeanThickness" in line:
+                    thickness = line.split(",")[3].strip()
+                    c_thickness_vals.append(float(thickness))
+                    break
+    if os.path.exists(f'{BASEDIR}{sub}/stats/aseg.stats'):
+        with open(f'{BASEDIR}{sub}/stats/aseg.stats', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if "BrainSegVol" in line:
+                    volume = line.split(",")[3].strip()
+                    c_brainseg_vals.append(float(volume))
+                    break
+
 
 pd_thickness_vals = []
 pd_brainseg_vals = []
 for sub in pd_list:
-    with open(f'{BASEDIR}{sub}/stats/lh.aparc.stats', 'r') as f:
-        for line in f:
-            line = line.strip()
-            if "MeanThickness" in line:
-                thickness = line.split(",")[3].strip()
-                pd_thickness_vals.append(float(thickness))
-                break
-    with open(f'{BASEDIR}{sub}/stats/aseg.stats', 'r') as f:
-        for line in f:
-            line = line.strip()
-            if "BrainSegVol" in line:
-                volume = line.split(",")[3].strip()
-                pd_brainseg_vals.append(float(volume))
-                break
+    if os.path.exists(f'{BASEDIR}{sub}/stats/lh.aparc.stats'):
+        with open(f'{BASEDIR}{sub}/stats/lh.aparc.stats', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if "MeanThickness" in line:
+                    thickness = line.split(",")[3].strip()
+                    pd_thickness_vals.append(float(thickness))
+                    break
+    if os.path.exists(f'{BASEDIR}{sub}/stats/aseg.stats'):
+        with open(f'{BASEDIR}{sub}/stats/aseg.stats', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if "BrainSegVol" in line:
+                    volume = line.split(",")[3].strip()
+                    pd_brainseg_vals.append(float(volume))
+                    break
 
 et_thickness_vals = []
 et_brainseg_vals = []
 for sub in et_list:
-    with open(f'{BASEDIR}{sub}/stats/lh.aparc.stats', 'r') as f:
-        for line in f:
-            line = line.strip()
-            if "MeanThickness" in line:
-                thickness = line.split(",")[3].strip()
-                et_thickness_vals.append(float(thickness))
-                break
-    with open(f'{BASEDIR}{sub}/stats/aseg.stats', 'r') as f:
-        for line in f:
-            line = line.strip()
-            if "BrainSegVol" in line:
-                volume = line.split(",")[3].strip()
-                et_brainseg_vals.append(float(volume))
-                break
+    if os.path.exists(f'{BASEDIR}{sub}/stats/lh.aparc.stats'):
+        with open(f'{BASEDIR}{sub}/stats/lh.aparc.stats', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if "MeanThickness" in line:
+                    thickness = line.split(",")[3].strip()
+                    et_thickness_vals.append(float(thickness))
+                    break
+    if os.path.exists(f'{BASEDIR}{sub}/stats/aseg.stats'):
+        with open(f'{BASEDIR}{sub}/stats/aseg.stats', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if "BrainSegVol" in line:
+                    volume = line.split(",")[3].strip()
+                    et_brainseg_vals.append(float(volume))
+                    break
 
 dip_thickness_vals = []
 dip_brainseg_vals = []
 for sub in dip_list:
-    with open(f'{BASEDIR}{sub}/stats/lh.aparc.stats', 'r') as f:
-        for line in f:
-            line = line.strip()
-            if "MeanThickness" in line:
-                thickness = line.split(",")[3].strip()
-                dip_thickness_vals.append(float(thickness))
-                break
-    with open(f'{BASEDIR}{sub}/stats/aseg.stats', 'r') as f:
-        for line in f:
-            line = line.strip()
-            if "BrainSegVol" in line:
-                volume = line.split(",")[3].strip()
-                dip_brainseg_vals.append(float(volume))
-                break
+    if os.path.exists(f'{BASEDIR}{sub}/stats/lh.aparc.stats'):
+        with open(f'{BASEDIR}{sub}/stats/lh.aparc.stats', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if "MeanThickness" in line:
+                    thickness = line.split(",")[3].strip()
+                    dip_thickness_vals.append(float(thickness))
+                    break
+    if os.path.exists(f'{BASEDIR}{sub}/stats/aseg.stats'):
+        with open(f'{BASEDIR}{sub}/stats/aseg.stats', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if "BrainSegVol" in line:
+                    volume = line.split(",")[3].strip()
+                    dip_brainseg_vals.append(float(volume))
+                    break
 
 # Calculate values
 cohort_stats = {
@@ -196,24 +205,30 @@ with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
             mean_thickness_ok = None
             brainseg_vol_ok = None
         else:
-            with open(f'{BASEDIR}{subjid}/stats/lh.aparc.stats', 'r') as f_stats:
-                for line in f_stats:
-                    line = line.strip()
-                    if "MeanThickness" in line:
-                        subj_mean_thickness = line.split(",")[3].strip()
-                        break
+            if os.path.exists(f'{BASEDIR}{subjid}/stats/lh.aparc.stats'):
+                with open(f'{BASEDIR}{subjid}/stats/lh.aparc.stats', 'r') as f_stats:
+                    for line in f_stats:
+                        line = line.strip()
+                        if "MeanThickness" in line:
+                            subj_mean_thickness = line.split(",")[3].strip()
+                            break
 
-            mean_thickness_ok = abs((float(subj_mean_thickness) - cohort_stats[cohort]['mean_thickness']) / cohort_stats[cohort]['std_thickness']) < 2
+                mean_thickness_ok = abs((float(subj_mean_thickness) - cohort_stats[cohort]['mean_thickness']) / cohort_stats[cohort]['std_thickness']) < 2
+            else:
+                mean_thickness_ok = None
 
             # Find Brainseg Volume
-            with open(f'{BASEDIR}{subjid}/stats/aseg.stats', 'r') as f_stats:
-                for line in f_stats:
-                    line = line.strip()
-                    if "BrainSegVol" in line:
-                        subj_brainseg_volume = line.split(",")[3].strip()
-                        break
+            if os.path.exists(f'{BASEDIR}{subjid}/stats/aseg.stats'):
+                with open(f'{BASEDIR}{subjid}/stats/aseg.stats', 'r') as f_stats:
+                    for line in f_stats:
+                        line = line.strip()
+                        if "BrainSegVol" in line:
+                            subj_brainseg_volume = line.split(",")[3].strip()
+                            break
 
-            brainseg_vol_ok = abs((float(subj_brainseg_volume) - cohort_stats[cohort]['mean_brainseg']) / cohort_stats[cohort]['std_brainseg']) < 2
+                brainseg_vol_ok = abs((float(subj_brainseg_volume) - cohort_stats[cohort]['mean_brainseg']) / cohort_stats[cohort]['std_brainseg']) < 2
+            else:
+                brainseg_vol_ok = None
         
         # Build Map
         qc_map = {"subjid": subjid,
