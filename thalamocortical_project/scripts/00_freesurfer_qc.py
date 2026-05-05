@@ -234,15 +234,28 @@ with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
         qc_map = {"subjid": subjid,
                      "euler_lh": euler_lh_val,
                      "euler_rh": euler_rh_val,
-                     "file_output_ok": file_output_ok,
-                     "missing_files": missing_files,
                      "euler_lh_ok": euler_lh_ok,
                      "euler_rh_ok": euler_rh_ok,
                      "euler_val_ok": euler_val_ok,
+                     "file_output_ok": file_output_ok,
+                     "missing_files": missing_files,
                      "mean_thickness_ok": mean_thickness_ok,
                      "brainseg_vol_ok": brainseg_vol_ok
                      }
         qc_map_list.append(qc_map)
 
 df = pd.DataFrame(qc_map_list)
+
+ok_cols = ['euler_lh_ok', 'euler_rh_ok', 'euler_val_ok', 'file_output_ok', 'mean_thickness_ok', 'brainseg_vol_ok']
+df_flagged = df[df[ok_cols].isin([False]).any(axis=1) | df[ok_cols].isnull().any(axis=1)]
+
+# Make flagged_subjects.txt
+with open(f'{PROJECTDIR}thalamo_project/qc/freesurfer_qc/flagged_subjects.txt', 'w') as f:
+    for sub in df_flagged['subjid']:
+        f.write(sub + '\n')
+
+# Make flagged_subjects_details.csv
+df_flagged.to_csv(f'{PROJECTDIR}thalamo_project/qc/freesurfer_qc/flagged_subjects_details.csv', index=False)
+
+# Print table
 print(df.to_string())

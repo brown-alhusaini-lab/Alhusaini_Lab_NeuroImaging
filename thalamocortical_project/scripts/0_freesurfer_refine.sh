@@ -18,4 +18,4 @@ while IFS= read -r subjid; do
     echo "Processing $subjid"
     recon-all -autorecon2-cp -autorecon3 -s $subjid -openmp 4
     echo "Done: $subjid"
-done < $BASEDIR/subjid.txt
+done < $BASEDIR/thalamo_project/qc/freesurfer_qc/flagged_subjects.txt
