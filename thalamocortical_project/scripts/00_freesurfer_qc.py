@@ -173,6 +173,9 @@ with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
         euler_lh_val = None
         euler_rh_val = None
 
+        asymmetry_index = None
+        asymmetry_index_ok = None
+
         cohort = sub_cohort_finder(subjid)
 
         # Check if FreeSurfer outputs exist
@@ -210,10 +213,22 @@ with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
                     for line in f_stats:
                         line = line.strip()
                         if "MeanThickness" in line:
-                            subj_mean_thickness = line.split(",")[3].strip()
+                            lh_mean_thickness = line.split(",")[3].strip()
                             break
+                                
+                mean_thickness_ok = abs((float(lh_mean_thickness) - cohort_stats[cohort]['mean_thickness']) / cohort_stats[cohort]['std_thickness']) < 2
 
-                mean_thickness_ok = abs((float(subj_mean_thickness) - cohort_stats[cohort]['mean_thickness']) / cohort_stats[cohort]['std_thickness']) < 2
+                if os.path.exists(f'{BASEDIR}{subjid}/stats/rh.aparc.stats'):
+                    with open(f'{BASEDIR}{subjid}/stats/rh.aparc.stats', 'r') as f_stats:
+                        for line in f_stats:
+                            line = line.strip()
+                            if "MeanThickness" in line:
+                                rh_mean_thickness = line.split(",")[3].strip()
+                                break
+                
+                    asymmetry_index = abs(float(lh_mean_thickness) - float(rh_mean_thickness)) / statistics.mean([float(lh_mean_thickness), float(rh_mean_thickness)])
+                    asymmetry_index_ok = not(asymmetry_index > 0.15)
+
             else:
                 mean_thickness_ok = None
 
@@ -240,13 +255,15 @@ with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
                      "file_output_ok": file_output_ok,
                      "missing_files": missing_files,
                      "mean_thickness_ok": mean_thickness_ok,
-                     "brainseg_vol_ok": brainseg_vol_ok
+                     "brainseg_vol_ok": brainseg_vol_ok,
+                     "asymmetry_index_ok": asymmetry_index_ok,
+                     "asymmetry_index": asymmetry_index
                      }
         qc_map_list.append(qc_map)
 
 df = pd.DataFrame(qc_map_list)
 
-ok_cols = ['euler_lh_ok', 'euler_rh_ok', 'euler_val_ok', 'file_output_ok', 'mean_thickness_ok', 'brainseg_vol_ok']
+ok_cols = ['euler_lh_ok', 'euler_rh_ok', 'euler_val_ok', 'file_output_ok', 'mean_thickness_ok', 'brainseg_vol_ok', 'asymmetry_index_ok']
 df_flagged = df[df[ok_cols].isin([False]).any(axis=1) | df[ok_cols].isnull().any(axis=1)]
 
 # Make flagged_subjects.txt
