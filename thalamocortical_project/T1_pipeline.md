@@ -51,6 +51,8 @@ _(runs QC script and flags which subjects have issues, prints table)_
 | `mean_thickness_ok` | Whether cortical thickness is within 2 SD of cohort mean |
 | `brainseg_vol_ok` | Whether brain volume is within 2 SD of cohort mean |
 
+_(If there are missing_files, then don't run 0_freesurfer_refine.sh just yet, figure out why the files are missing first. It's likely that the FreeSurfer job just didn't complete)_
+
 _(Any `False` in the table → that subject needs manual freeview inspection. The subjects that were flagged will be moved to /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects.txt)_
 
 _(flagged subject details saved in /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects_details.csv)_
