@@ -68,7 +68,7 @@ _(for reference of what the issues are for each flagged subject)_
 ```bash
 cat /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects.txt
 ```
-_(for reference of who are the flagged subject (DON'T EDIT THIS FILE))_
+_(for reference of who the flagged subjects are (DON'T EDIT THIS FILE))_
 
 ```bash
 module load freesurfer/8.0.0-7ye6
