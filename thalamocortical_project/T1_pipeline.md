@@ -23,7 +23,7 @@ See the full FreeSurfer guide: [Oscar Pre-Processing Pipeline](../oscar_preproce
 ---
 
 ## Step 2: FreeSurfer QC (Quality Control)
-# First, run the automatic QC script to flag the subjects that need to be manually checked on Freeview
+### First, run the automatic QC script to flag the subjects that need to be manually checked on Freeview
 
 ```bash
 vim $HOME/subjid.txt
@@ -40,7 +40,7 @@ python3 00_freesurfer_qc.py
 ```
 _(runs QC script and flags which subjects have issues)_
 
-# If some subjects need to be manually checked:
+### If some subjects need to be manually checked:
 > **Note:** freeview is a GUI — must be run from a Desktop session on OOD at `ood.ccv.brown.edu`
 
 ```bash
