@@ -38,10 +38,35 @@ module load anaconda3
 ```bash
 python3 00_freesurfer_qc.py
 ```
-_(runs QC script and flags which subjects have issues, prints csv file)_
+_(runs QC script and flags which subjects have issues, prints table)_
+
+**Output columns:**
+| Column | What it checks |
+|--------|---------------|
+| `euler_lh` / `euler_rh` | Raw Euler number per hemisphere (0 = perfect, more negative = more defects) |
+| `euler_lh_ok` / `euler_rh_ok` | Whether Euler number was successfully parsed (False = command failed) |
+| `euler_val_ok` | Whether Euler number is above -200 threshold |
+| `file_output_ok` | Whether all 6 key FreeSurfer output files exist |
+| `missing_files` | List of any missing files |
+| `mean_thickness_ok` | Whether cortical thickness is within 2 SD of cohort mean |
+| `brainseg_vol_ok` | Whether brain volume is within 2 SD of cohort mean |
+
+_(Any `False` in the table → that subject needs manual freeview inspection. The subjects that were flagged will be moved to /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects.txt)_
+
+_(flagged subject details saved in /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects_details.csv)_
 
 ### If some subjects need to be manually checked:
 > **Note:** freeview is a GUI — must be run from a Desktop session on OOD at `ood.ccv.brown.edu`
+
+```bash
+cat /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects_details.csv
+```
+_(for reference of what the issues are for each flagged subject)_
+
+```bash
+cat /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects.txt
+```
+_(for reference of who are the flagged subject (DON'T EDIT THIS FILE))_
 
 ```bash
 module load freesurfer/8.0.0-7ye6
