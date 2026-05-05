@@ -4,7 +4,7 @@ import os
 # Usage: python3 5_qc_connectome.py <subject_id>
 overall_pass = True
 
-with open(f'/oscar/data/salhusai/DIPARK/subjid.txt', 'r') as f:
+with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
     for line in f:
         subjid = line.strip()
         base = f'/oscar/data/salhusai/DIPARK/thalamo_project/subjects/{subjid}/thomas'

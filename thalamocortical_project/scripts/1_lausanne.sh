@@ -24,6 +24,7 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 
 # Cd into the location where this bit of code is stored
 BASEDIR=/oscar/data/salhusai/DIPARK
+SUBJ_LIST=$HOME/subjid.txt
 cd $BASEDIR
 
 echo "set up complete"
@@ -78,4 +79,4 @@ while IFS= read -r subjid; do
     mkdir -p $BASEDIR/thalamo_project/subjects/$subjid/lausanne/
     mv $SUBJECTS_DIR/$subjid/mri/*myaparc*.mgz $BASEDIR/thalamo_project/subjects/$subjid/lausanne/
     mv $SUBJECTS_DIR/$subjid/label/*myaparc*.annot $BASEDIR/thalamo_project/subjects/$subjid/lausanne/
-done < $BASEDIR/subjid.txt  # end subject loop
+done < $SUBJ_LIST  # end subject loop

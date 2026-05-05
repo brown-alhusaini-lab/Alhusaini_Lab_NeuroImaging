@@ -8,6 +8,7 @@
 
 BASEDIR=/oscar/data/salhusai/DIPARK
 LABELS=$BASEDIR/thalamo_project/labels
+SUBJ_LIST=$HOME/subjid.txt
 
 module load freesurfer/8.0.0-7ye6
 source $FREESURFER_HOME/SetUpFreeSurfer.sh
@@ -97,4 +98,4 @@ while IFS= read -r subjid; do
     rm -f ${thomas_atlas}/thomas_leftX1001.nii.gz
     rm -f ${thomas_atlas}/thomas_XB.nii.gz
 
-done < $BASEDIR/subjid.txt # end subject loop
+done < $SUBJ_LIST # end subject loop

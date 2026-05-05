@@ -20,7 +20,7 @@ nucleus_map = {"AV-L" : 115,
                     "MD-Pf-L" : 122,
                     "MD-Pf-R" : 136}
 
-with open(f'/oscar/data/salhusai/DIPARK/subjid.txt', 'r') as f:
+with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
     strength_map_list = []
     for line in f:
         subjid = line.strip()

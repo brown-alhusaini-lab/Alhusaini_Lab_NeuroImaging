@@ -109,12 +109,6 @@ After best approach (thomas_csh_big + T1-space):
 
 ---
 
-## Pending Tests
-- `hipsthomas_csh` + T1-space — to complete the 2x2 comparison before finalizing pipeline choice
-- Discuss increasing streamlines (5M → 10M) with lab partner for future subjects
-
----
-
 ## Final Pipeline Configuration (Current Best)
 - THOMAS: `thomas_csh_big`
 - Connectome space: T1-space (`4_2_connectome.sh`)

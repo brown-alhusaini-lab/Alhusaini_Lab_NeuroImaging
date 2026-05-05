@@ -8,6 +8,7 @@
 
 BASEDIR=/oscar/data/salhusai/DIPARK
 SESSION=ses-01
+SUBJ_LIST=$HOME/subjid.txt
 
 module load mrtrix3/3.0.6-ylq2
 module load fsl/6.0.7.19s-jqc4
@@ -86,4 +87,4 @@ while IFS= read -r subjid; do
 
     echo "Done: $subjid"
 
-done < $BASEDIR/subjid.txt # end subject loop
+done < $SUBJ_LIST # end subject loop

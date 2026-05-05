@@ -10,6 +10,7 @@ BASEDIR=/oscar/data/salhusai/DIPARK
 BIDS=$BASEDIR/bids_export/alhusaini/study-dipark/bids
 SIF=$BASEDIR/thalamo_project/thomasmerged.sif
 SESSION=ses-01
+SUBJ_LIST=$HOME/subjid.txt
 
 while IFS= read -r subjid; do
 echo "Processing $subjid"
@@ -42,5 +43,4 @@ rm -f m*.nii.gz
 cd $BASEDIR
     echo "Done: $subjid"
 
-done < $BASEDIR/subjid.txt
-
+done < $SUBJ_LIST
