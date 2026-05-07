@@ -167,14 +167,15 @@ with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
         subjid = line.strip()
         file_output_ok = True
         missing_files = []
-        euler_lh_ok = True
-        euler_rh_ok = True
 
         euler_lh_val = None
         euler_rh_val = None
 
+        lh_mean_thickness = None
+        rh_mean_thickness = None
         asymmetry_index = None
         asymmetry_index_ok = None
+
 
         cohort = sub_cohort_finder(subjid)
 
@@ -190,18 +191,22 @@ with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
         try:
             euler_lh_val = int(euler_lh.stdout.split("=")[-1].split(" ")[-1])
         except ValueError:
-            euler_lh_ok = False
+            pass
 
         euler_rh = subprocess.run(['mris_euler_number', f'{BASEDIR}{subjid}/surf/rh.white'], capture_output=True, text=True)
         try:
             euler_rh_val = int(euler_rh.stdout.split("=")[-1].split(" ")[-1])
         except ValueError:
-            euler_rh_ok = False
+            pass
 
-        euler_val_ok = True
+        
         if euler_lh_val != None and euler_rh_val != None:
             if min(euler_lh_val, euler_rh_val) < -200:
                 euler_val_ok = False
+            else:
+                euler_val_ok = True
+        else:
+            euler_val_ok = False
         
         # Find Mean Thickness
         if cohort == None:
@@ -247,23 +252,23 @@ with open(os.path.expanduser('~/subjid.txt'), 'r') as f:
         
         # Build Map
         qc_map = {"subjid": subjid,
-                     "euler_lh": euler_lh_val,
-                     "euler_rh": euler_rh_val,
-                     "euler_lh_ok": euler_lh_ok,
-                     "euler_rh_ok": euler_rh_ok,
-                     "euler_val_ok": euler_val_ok,
-                     "file_output_ok": file_output_ok,
-                     "missing_files": missing_files,
-                     "mean_thickness_ok": mean_thickness_ok,
-                     "brainseg_vol_ok": brainseg_vol_ok,
-                     "asymmetry_index_ok": asymmetry_index_ok,
-                     "asymmetry_index": asymmetry_index
-                     }
+            "file_output_ok": file_output_ok,
+            "missing_files": missing_files,
+            "euler_lh": euler_lh_val,
+            "euler_rh": euler_rh_val,
+            "euler_val_ok": euler_val_ok,
+            "lh_mean_thickness": lh_mean_thickness,
+            "rh_mean_thickness": rh_mean_thickness,
+            "mean_thickness_ok": mean_thickness_ok,
+            "asymmetry_index": asymmetry_index,
+            "asymmetry_index_ok": asymmetry_index_ok,
+            "brainseg_vol_ok": brainseg_vol_ok
+            }
         qc_map_list.append(qc_map)
 
 df = pd.DataFrame(qc_map_list)
 
-ok_cols = ['euler_lh_ok', 'euler_rh_ok', 'euler_val_ok', 'file_output_ok', 'mean_thickness_ok', 'brainseg_vol_ok', 'asymmetry_index_ok']
+ok_cols = ['euler_val_ok', 'file_output_ok', 'mean_thickness_ok', 'brainseg_vol_ok', 'asymmetry_index_ok']
 df_flagged = df[df[ok_cols].isin([False]).any(axis=1) | df[ok_cols].isnull().any(axis=1)]
 
 # Make flagged_subjects.txt
