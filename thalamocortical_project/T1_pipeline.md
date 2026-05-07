@@ -44,7 +44,6 @@ _(runs QC script and flags which subjects have issues, prints table)_
 | Column | What it checks |
 |--------|---------------|
 | `euler_lh` / `euler_rh` | Raw Euler number per hemisphere (0 = perfect, more negative = more defects) |
-| `euler_lh_ok` / `euler_rh_ok` | Whether Euler number was successfully parsed (False = command failed) |
 | `euler_val_ok` | Whether Euler number is above -200 threshold |
 | `file_output_ok` | Whether all 6 key FreeSurfer output files exist |
 | `missing_files` | List of any missing files |
@@ -68,7 +67,14 @@ _(for reference of what the issues are for each flagged subject)_
 ```bash
 cat /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects.txt
 ```
-_(for reference of who the flagged subjects are (DON'T EDIT THIS FILE))_
+_(for reference of who the flagged subjects are — DON'T EDIT THIS FILE)_
+
+**Hard stops — do not proceed to Step 3:**
+- `file_output_ok = False` → FreeSurfer did not finish, investigate logs before anything else
+- `euler_val_ok = False` → real topological defect, must place control points and run `0_freesurfer_refine.sh`
+
+**Judgment calls — open freeview and decide:**
+- `mean_thickness_ok = False`, `brainseg_vol_ok = False`, `asymmetry_index_ok = False` → may be biological (especially in PD). If surfaces look clean in freeview, proceed to Step 3.
 
 ```bash
 module load freesurfer/8.0.0-7ye6
@@ -90,15 +96,15 @@ freeview \
 ```
 _(opens freeview with brain volume, segmentation overlay, and white/pial surfaces for both hemispheres)_
 
-**QC — check all four:**
+**Manual QC — check all four:**
 - Blue (white) surface hugs white matter boundary
 - Red (pial) surface hugs grey/CSF boundary
 - No holes, islands, or blowouts
 - aseg labels roughly match anatomy
 
-_(If QC passes → proceed to Step 3)_
+_(If Manual QC passes + no euler value issue → proceed to Step 3)_
 
-_(If QC fails → place control points in freeview, run refinement below, then repeat Step 2)_
+_(If Manual QC fails or euler value issue → place control points in freeview, run refinement below, then repeat Step 2)_
 
 **Control point placement:**
 1. In freeview, load `$SUBJECTS_DIR/sub-XXX/mri/brainmask.mgz` as the volume
@@ -110,7 +116,7 @@ _(If QC fails → place control points in freeview, run refinement below, then r
 _(For full instructions → see the [FreeSurfer control points guide](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/ControlPoints_freeview))_
 
 ```bash
-sbatch /oscar/data/salhusai/DIPARK/thalamo_project/scripts/0_freesurfer_refine.sh
+sbatch --array=0-$(( $(wc -l < ~/subjid.txt) - 1 )) /oscar/data/salhusai/DIPARK/thalamo_project/scripts/0_freesurfer_refine.sh
 ```
 _(reruns FreeSurfer stages 2–3 using manually placed control points — must save control points in freeview first)_
 
@@ -130,7 +136,7 @@ vim $HOME/subjid.txt
 _(add subject IDs, one per line, e.g. `sub-c100`)_
 
 ```bash
-sbatch /oscar/data/salhusai/DIPARK/thalamo_project/scripts/1_lausanne.sh
+sbatch --array=0-$(( $(wc -l < ~/subjid.txt) - 1 )) /oscar/data/salhusai/DIPARK/thalamo_project/scripts/1_lausanne.sh
 ```
 _(submits the Lausanne parcellation job — expect ~8 minutes per subject)_
 
@@ -173,7 +179,7 @@ vim $HOME/subjid.txt
 _(add subject IDs, one per line, e.g. `sub-c100`)_
 
 ```bash
-sbatch /oscar/data/salhusai/DIPARK/thalamo_project/scripts/2_thomas.sh
+sbatch --array=0-$(( $(wc -l < ~/subjid.txt) - 1 )) /oscar/data/salhusai/DIPARK/thalamo_project/scripts/2_thomas.sh
 ```
 _(submits the THOMAS segmentation job — expect ~1-2 hours per subject)_
 
@@ -205,7 +211,7 @@ vim $HOME/subjid.txt
 _(add subject IDs, one per line)_
 
 ```bash
-sbatch /oscar/data/salhusai/DIPARK/thalamo_project/scripts/3_combine_parcellation.sh
+sbatch --array=0-$(( $(wc -l < ~/subjid.txt) - 1 )) /oscar/data/salhusai/DIPARK/thalamo_project/scripts/3_combine_parcellation.sh
 ```
 _(submits the combine parcellation job — expect ~1 minute per subject)_
 
@@ -239,7 +245,7 @@ vim $HOME/subjid.txt
 _(add subject IDs, one per line)_
 
 ```bash
-sbatch /oscar/data/salhusai/DIPARK/thalamo_project/scripts/4_connectome.sh
+sbatch --array=0-$(( $(wc -l < ~/subjid.txt) - 1 )) /oscar/data/salhusai/DIPARK/thalamo_project/scripts/4_connectome.sh
 ```
 _(submits connectome construction job — expect ~6 mins per subject)_
 
@@ -271,9 +277,9 @@ _(If missing → check `/oscar/home/$USER/logs/connectome_XXXXXX.err`)_
 module load anaconda3
 ```
 ```bash
-python3 /oscar/data/salhusai/DIPARK/thalamo_project/scripts/5_qc_connectome.py sub-XXX
+python3 /oscar/data/salhusai/DIPARK/thalamo_project/scripts/5_qc_connectome.py
 ```
-_(checks shape, symmetry, NaN/negative values, and thalamic connectivity across all 9 connectomes)_
+_(checks shape, symmetry, NaN/negative values, and thalamic connectivity across all 9 connectomes for each subject)_
 
 **Expect:**
 - All checks `PASS`
