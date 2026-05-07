@@ -280,4 +280,6 @@ with open(f'{PROJECTDIR}thalamo_project/qc/freesurfer_qc/flagged_subjects.txt', 
 df_flagged.to_csv(f'{PROJECTDIR}thalamo_project/qc/freesurfer_qc/flagged_subjects_details.csv', index=False)
 
 # Print table
+pd.set_option('display.width', None)
+pd.set_option('display.max_columns', None)
 print(df.to_string())
