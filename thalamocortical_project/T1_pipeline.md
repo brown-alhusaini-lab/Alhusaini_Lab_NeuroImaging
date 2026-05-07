@@ -38,11 +38,14 @@ _(runs QC script and flags which subjects have issues, prints table)_
 **Output columns:**
 | Column | What it checks |
 |--------|---------------|
-| `euler_lh` / `euler_rh` | Raw Euler number per hemisphere (0 = perfect, more negative = more defects) |
-| `euler_val_ok` | Whether Euler number is above -200 threshold |
 | `file_output_ok` | Whether all 6 key FreeSurfer output files exist |
 | `missing_files` | List of any missing files |
+| `euler_lh` / `euler_rh` | Raw Euler number per hemisphere (0 = perfect, more negative = more defects) |
+| `euler_val_ok` | Whether Euler number is above -200 threshold |
+| `lh_mean_thickness` / `rh_mean_thickness` | Raw cortical thickness values per hemisphere (mm) |
 | `mean_thickness_ok` | Whether cortical thickness is within 2 SD of cohort mean |
+| `asymmetry_index` | Raw hemispheric asymmetry index (0 = perfectly symmetric) |
+| `asymmetry_index_ok` | Whether asymmetry index is below 15% threshold |
 | `brainseg_vol_ok` | Whether brain volume is within 2 SD of cohort mean |
 
 _(If there are missing_files, then don't run 0_freesurfer_refine.sh just yet, figure out why the files are missing first. It's likely that the FreeSurfer job just didn't complete)_
