@@ -36,7 +36,7 @@ module load anaconda3
 ```
 
 ```bash
-python3 00_freesurfer_qc.py
+python3 /oscar/data/salhusai/DIPARK/thalamo_project/scripts/00_freesurfer_qc.py
 ```
 _(runs QC script and flags which subjects have issues, prints table)_
 
