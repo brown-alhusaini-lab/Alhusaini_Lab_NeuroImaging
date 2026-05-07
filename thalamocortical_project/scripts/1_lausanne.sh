@@ -2,8 +2,8 @@
 #SBATCH --job-name=lausanne
 #SBATCH --time=04:00:00
 #SBATCH --mem=16G
-#SBATCH --output=/oscar/home/azeanala/logs/lausanne_%j.out
-#SBATCH --error=/oscar/home/azeanala/logs/lausanne_%j.err
+#SBATCH --output=/oscar/home/azeanala/logs/lausanne_%A_%a.out
+#SBATCH --error=/oscar/home/azeanala/logs/lausanne_%A_%a.err
 ## Code needed to generate extra parcellations
 
 # Need the following in the same location as the script
@@ -24,7 +24,6 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 
 # Cd into the location where this bit of code is stored
 BASEDIR=/oscar/data/salhusai/DIPARK
-SUBJ_LIST=$HOME/subjid.txt
 cd $BASEDIR
 
 echo "set up complete"
@@ -33,17 +32,17 @@ export SUBJECTS_DIR=$BASEDIR/procsubj
 cp -r $BASEDIR/fsaverage/* $SUBJECTS_DIR/fsaverage/
 
 ##ƒor every file path stored in subjid.txt
-while IFS= read -r subjid; do
-    echo $subjid
-    mkdir -p $SUBJECTS_DIR/$subjid/stats/
-    cd $SUBJECTS_DIR
-    #ln -s $FREESURFER_HOME/subjects/fsaverage fsaverage
-    
-    # Create an array that contains the names of the new parcellations we would like to use.
-    declare -a arr=("myaparc_36" "myaparc_60" "myaparc_125")    
-    # For each new parcellation scheme
-    for i in "${arr[@]}";do
-	
+subjid=$(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" ~/subjid.txt)
+echo $subjid
+mkdir -p $SUBJECTS_DIR/$subjid/stats/
+cd $SUBJECTS_DIR
+#ln -s $FREESURFER_HOME/subjects/fsaverage fsaverage
+
+# Create an array that contains the names of the new parcellations we would like to use.
+declare -a arr=("myaparc_36" "myaparc_60" "myaparc_125")    
+# For each new parcellation scheme
+for i in "${arr[@]}";do
+
         ATLAS=$i
         echo $ATLAS
 
@@ -79,4 +78,3 @@ while IFS= read -r subjid; do
     mkdir -p $BASEDIR/thalamo_project/subjects/$subjid/lausanne/
     mv $SUBJECTS_DIR/$subjid/mri/*myaparc*.mgz $BASEDIR/thalamo_project/subjects/$subjid/lausanne/
     mv $SUBJECTS_DIR/$subjid/label/*myaparc*.annot $BASEDIR/thalamo_project/subjects/$subjid/lausanne/
-done < $SUBJ_LIST  # end subject loop

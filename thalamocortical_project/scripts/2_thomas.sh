@@ -3,16 +3,15 @@
 #SBATCH --time=06:00:00
 #SBATCH --mem=32G
 #SBATCH --cpus-per-task=4
-#SBATCH --output=/oscar/home/azeanala/logs/thomas_%j.out
-#SBATCH --error=/oscar/home/azeanala/logs/thomas_%j.err
+#SBATCH --output=/oscar/home/azeanala/logs/thomas_%A_%a.out
+#SBATCH --error=/oscar/home/azeanala/logs/thomas_%A_%a.err
 
 BASEDIR=/oscar/data/salhusai/DIPARK
 BIDS=$BASEDIR/bids_export/alhusaini/study-dipark/bids
 SIF=$BASEDIR/thalamo_project/thomasmerged.sif
 SESSION=ses-01
-SUBJ_LIST=$HOME/subjid.txt
 
-while IFS= read -r subjid; do
+subjid=$(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" ~/subjid.txt)
 echo "Processing $subjid"
 
 # SET THE BASES
@@ -42,5 +41,3 @@ rm -f m*.nii.gz
 # Move back to the subject list
 cd $BASEDIR
     echo "Done: $subjid"
-
-done < $SUBJ_LIST

@@ -3,8 +3,8 @@
 #SBATCH --time=12:00:00
 #SBATCH --mem=32G
 #SBATCH --cpus-per-task=4
-#SBATCH --output=/oscar/home/azeanala/logs/fs_refine_%j.out
-#SBATCH --error=/oscar/home/azeanala/logs/fs_refine_%j.err
+#SBATCH --output=/oscar/home/azeanala/logs/fs_refine_%A_%a.out
+#SBATCH --error=/oscar/home/azeanala/logs/fs_refine_%A_%a.err
 
 BASEDIR=/oscar/data/salhusai/DIPARK
 
@@ -14,8 +14,7 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 
 export SUBJECTS_DIR=$BASEDIR/procsubj
 
-while IFS= read -r subjid; do
-    echo "Processing $subjid"
-    recon-all -autorecon2-cp -autorecon3 -s $subjid -openmp 4
-    echo "Done: $subjid"
-done < $BASEDIR/thalamo_project/qc/freesurfer_qc/flagged_subjects.txt
+subjid=$(sed -n "$((SLURM_ARRAY_TASK_ID + 1))p" ~/subjid.txt)
+echo "Processing $subjid"
+recon-all -autorecon2-cp -autorecon3 -s $subjid -openmp 4
+echo "Done: $subjid"
