@@ -13,11 +13,6 @@
 
 > **Note:** Step 4 (THOMAS) can be run concurrently with Steps 2–3 once XNAT2BIDS is complete — it only requires the raw T1, not FreeSurfer output.
 
-```bash
-vim $HOME/subjid.txt
-```
-_(add subject IDs, one per line, e.g. `sub-c100`)_
-
 See the full FreeSurfer guide: [Oscar Pre-Processing Pipeline](../oscar_preprocessing.md)
 
 ---
