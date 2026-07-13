@@ -32,7 +32,7 @@ i
 ```
 _(allows you to insert (edit) into the now empty file. Make sure you see -- INSERT -- in the bottom left corner when you input this)_
 
-_(now, copy and paste the script below, change your email on line 2, and change YOUR_USERNAME in bids_root="/oscar/data/salhusai/DIPARK/bids_export"_
+_(now, copy and paste the script below, change your email on line 2, and change YOUR_USERNAME in bids_root="/oscar/scratch/YOUR_USERNAME/sourcedata"_
 
 **:bangbang: _(NOTE: ABSOLUTELY MAKE SURE THAT YOU ARE IN THE x2b_myconfig.toml FILE WHEN YOU COPY THIS IN, DO NOT RUN THIS IN THE TERMINAL OR ELSE YOU WILL GET AN ANGRY EMAIL)_**
 
@@ -49,7 +49,7 @@ subjects=["sub-XXX", "sub-YYY"]
 ## Replace with your subject IDs, one per line
 
 ## Replace YOUR_USERNAME with your OSCAR username (e.g. jsmith1)
-bids_root="/oscar/data/salhusai/DIPARK/bids_export"
+bids_root="/oscar/scratch/YOUR_USERNAME/sourcedata"
 overwrite=true
 verbose=1
 dicomfix-config="/oscar/data/salhusai/DIPARK/code/alhusaini_fmap_dicom_fix_config.json"
@@ -84,10 +84,16 @@ _(enter XNAT username and password (should be the same as Brown login))_
 _(this runs interactively — wait for it to finish before moving on)_
 
 ```bash
-ls /oscar/data/salhusai/DIPARK/bids_export/alhusaini/study-dipark/bids/ | grep "sub-XXXX"
+ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/ | grep "sub-XXXX"
 ```
 _(confirm subject folders appeared before continuing)_
 
+> **Note:** the shared `bids_export` logs folder currently only has write permission for the account that created it, so exports there will crash. Export to your own scratch first, then copy your subject over:
+
+```bash
+cp -r /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/sub-XXXX \
+      /oscar/data/salhusai/DIPARK/bids_export/alhusaini/study-dipark/bids/
+```
 ---
 
 ### T1 Staging
@@ -272,7 +278,7 @@ python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config $H
 ```
 
 ```bash
-ls /oscar/data/salhusai/DIPARK/bids_export/alhusaini/study-dipark/bids/ | grep sub-XXX
+ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/ | grep sub-XXX
 ```
 _(wait for subject folder to appear, then `ls` replacing sub-XXX with the subject to confirm that the subject is there, if nothing returns, then redo XNAT->BIDS process)_
 
