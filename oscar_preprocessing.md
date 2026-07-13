@@ -84,7 +84,7 @@ _(enter XNAT username and password (should be the same as Brown login))_
 _(this runs interactively — wait for it to finish before moving on)_
 
 ```bash
-ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/
+ls /oscar/data/salhusai/DIPARK/bids_export/alhusaini/study-dipark/bids/
 ```
 _(confirm subject folders appeared before continuing)_
 
@@ -98,7 +98,7 @@ mkdir -p /oscar/scratch/$USER/staging
 _(creates your personal staging directory if it doesn't exist yet)_
 
 ```bash
-BIDS=/oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids
+BIDS=/oscar/data/salhusai/DIPARK/bids_export/alhusaini/study-dipark/bids
 INP=/oscar/scratch/$USER/staging
 ```
 _(sets shorthand variables for the BIDS data location and your staging folder)_
@@ -116,7 +116,7 @@ _(list every subject you want to process, space separated)_
 ```bash
 ls $BIDS | grep -E "sub-"
 ```
-_(confirms your BIDS directory has the expected subjects — note this is your scratch directory which gets purged every 30 days. If empty, re-run xnat2bids first)_
+_(confirms your BIDS directory has the expected subjects)_
 
 ```bash
 for sub in $SUBJECTS; do
@@ -272,7 +272,7 @@ python /oscar/data/bnc/shared/scripts/oscar-scripts/run_xnat2bids.py --config $H
 ```
 
 ```bash
-ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/ | grep sub-XXX
+ls /oscar/data/salhusai/DIPARK/bids_export/alhusaini/study-dipark/bids/ | grep sub-XXX
 ```
 _(wait for subject folder to appear, then `ls` replacing sub-XXX with the subject to confirm that the subject is there, if nothing returns, then redo XNAT->BIDS process)_
 
