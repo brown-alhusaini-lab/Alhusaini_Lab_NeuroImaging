@@ -52,7 +52,7 @@ subjects=["sub-XXX", "sub-YYY"]
 bids_root="/oscar/data/salhusai/DIPARK/bids_export"
 overwrite=true
 verbose=1
-dicomfix-config="/oscar/data/salhusai/DIPARK/alhusaini_fmap_dicom_fix_config.json"
+dicomfix-config="/oscar/data/salhusai/DIPARK/code/alhusaini_fmap_dicom_fix_config.json"
 ```
 
 #### Exit Insert Mode
