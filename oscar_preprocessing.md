@@ -84,7 +84,7 @@ _(enter XNAT username and password (should be the same as Brown login))_
 _(this runs interactively — wait for it to finish before moving on)_
 
 ```bash
-ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/ | grep "sub-XXXX"
+ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/
 ```
 _(confirm subject folders appeared before continuing)_
 
