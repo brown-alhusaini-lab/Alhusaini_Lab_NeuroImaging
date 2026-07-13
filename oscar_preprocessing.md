@@ -32,7 +32,7 @@ i
 ```
 _(allows you to insert (edit) into the now empty file. Make sure you see -- INSERT -- in the bottom left corner when you input this)_
 
-_(now, copy and paste the script below, change your email on line 2, and change YOUR_USERNAME in bids_root="/oscar/scratch/YOUR_USERNAME/sourcedata"_
+_(now, copy and paste the script below, change your email on line 2, and change YOUR_USERNAME in bids_root="/oscar/data/salhusai/DIPARK/bids_export"_
 
 **:bangbang: _(NOTE: ABSOLUTELY MAKE SURE THAT YOU ARE IN THE x2b_myconfig.toml FILE WHEN YOU COPY THIS IN, DO NOT RUN THIS IN THE TERMINAL OR ELSE YOU WILL GET AN ANGRY EMAIL)_**
 
@@ -49,7 +49,7 @@ subjects=["sub-XXX", "sub-YYY"]
 ## Replace with your subject IDs, one per line
 
 ## Replace YOUR_USERNAME with your OSCAR username (e.g. jsmith1)
-bids_root="/oscar/scratch/YOUR_USERNAME/sourcedata"
+bids_root="/oscar/data/salhusai/DIPARK/bids_export"
 overwrite=true
 verbose=1
 dicomfix-config="/oscar/data/salhusai/DIPARK/alhusaini_fmap_dicom_fix_config.json"
