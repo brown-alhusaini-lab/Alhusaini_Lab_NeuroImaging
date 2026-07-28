@@ -88,12 +88,6 @@ ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/
 ```
 _(confirm subject folders appeared before continuing)_
 
-> **Note:** the shared `bids_export` logs folder currently only has write permission for the account that created it, so exports there will crash. Export to your own scratch first, then copy your subject over:
-
-```bash
-cp -r /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/sub-XXXX \
-      /oscar/data/salhusai/DIPARK/bids_export/alhusaini/study-dipark/bids/
-```
 ---
 
 ### T1 Staging
@@ -104,7 +98,7 @@ mkdir -p /oscar/scratch/$USER/staging
 _(creates your personal staging directory if it doesn't exist yet)_
 
 ```bash
-BIDS=/oscar/data/salhusai/DIPARK/bids_export/alhusaini/study-dipark/bids
+BIDS=/oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids
 INP=/oscar/scratch/$USER/staging
 ```
 _(sets shorthand variables for the BIDS data location and your staging folder)_
@@ -122,7 +116,7 @@ _(list every subject you want to process, space separated)_
 ```bash
 ls $BIDS | grep -E "sub-"
 ```
-_(confirms your BIDS directory has the expected subjects)_
+_(confirms your BIDS directory has the expected subjects. Keep in mind that this scratch folder gets purged every 30 days)_
 
 ```bash
 for sub in $SUBJECTS; do
