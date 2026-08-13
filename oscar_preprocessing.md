@@ -88,7 +88,7 @@ ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/
 ```
 _(confirm subject folders appeared before continuing)_
 
-**To double check for crashes (especially if the job ran too quickly)**
+**To double check for crashes (especially if the job ran too quickly):**
 
 ```bash
 ls -lt /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/logs/
