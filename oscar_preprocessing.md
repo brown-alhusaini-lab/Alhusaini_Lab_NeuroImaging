@@ -88,6 +88,13 @@ ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/
 ```
 _(confirm subject folders appeared before continuing)_
 
+**To double check for crashes (especially if the job ran too quickly)**
+
+```bash
+ls -lt /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/logs/
+```
+_(find the most recent export and heudiconv logs and cat them to see if the job completed at the end of each file)_
+
 ---
 
 ### T1 Staging
