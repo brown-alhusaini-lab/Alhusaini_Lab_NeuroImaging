@@ -91,9 +91,9 @@ _(confirm subject folders appeared before continuing)_
 **To double check for crashes (especially if the job ran too quickly):**
 
 ```bash
-ls -lt /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/logs/
+ls /oscar/scratch/$USER/sourcedata/alhusaini/study-dipark/bids/sub-XXX/ses-01/anat/
 ```
-_(find the most recent export and heudiconv logs and cat them to see if the job completed at the end of each file)_
+_(Make sure you see the file that ends in "T1w.nii.gz")_
 
 ---
 
