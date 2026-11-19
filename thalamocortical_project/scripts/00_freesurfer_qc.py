@@ -40,3 +40,5 @@ df_flagged.to_csv(f'{PROJECTDIR}thalamo_project/qc/freesurfer_qc/flagged_subject
 
 # Print table
 print(df.to_string())
+print("Flagged subjects saved to /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects.txt")
+print("Flagged subject details saved to /oscar/data/salhusai/DIPARK/thalamo_project/qc/freesurfer_qc/flagged_subjects_details.csv")
